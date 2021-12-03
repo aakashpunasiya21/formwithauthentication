@@ -5,7 +5,6 @@ const client = axios.create({
 export const requestUser = (dataselector) => async (dispatch) => {
   try {
     const response = await client.post('/auth/register', dataselector);
-
   }
   catch (err) {
     console.log(err);

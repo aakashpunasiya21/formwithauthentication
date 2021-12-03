@@ -5,17 +5,13 @@ const client = axios.create({
 });
 export const Loginuser = (dataselector, history) => async (dispatch) => {
   try {
-    console.log("bcdjhj", history)
-    console.log("data", dataselector);
+   
     const response = await client.post('/auth/login', dataselector);
     history.push("/loginsuccss")
     dispatch(setToken(response.data));
-    const accessToken = localStorage.getItem("token") || '[]'
-    const paresToken = JSON.parse(accessToken)
-    paresToken.push({
-      token: (response.data.access_token)
-    })
-    localStorage.setItem('token', JSON.stringify(paresToken));
+    const accessToken = localStorage.getItem('token')
+    localStorage.setItem('token',response.data.access_token);
+    
   }
   catch (err) {
     console.log(err);

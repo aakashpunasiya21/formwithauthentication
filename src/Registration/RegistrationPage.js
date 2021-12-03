@@ -1,5 +1,5 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css'
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -18,8 +18,15 @@ function RegistrationPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestUser(dataselector));
-    history.push("/login");
+    if (dataselector.email.trim() == "" && dataselector.password.trim() == "") {
+      alert("Email and Password must not be empty")
+    } else {
+      dispatch(requestUser(dataselector));
+      history.push("/login");
+    }
+  }
+  const handlePush = () => {
+    history.push("/login")
   }
   return (
     <>
@@ -31,7 +38,7 @@ function RegistrationPage() {
               id="floatingInputCustom"
               name="email"
               type="email"
-
+              className="col-sm-4"
               placeholder="name@example.com"
               onChange={handleChnage}
             />
@@ -46,9 +53,11 @@ function RegistrationPage() {
               onChange={handleChnage}
             />
             <label htmlFor="floatingPasswordCustom">Password</label>
-            <Button type="submit">Registration</Button>
           </Form.Floating>
+          <Button className="mt-2" type="submit">Registration</Button>{" "}
+
         </Form>
+        <Button className="mt-2" type="submit" onClick={handlePush}>Login</Button>
       </div>
     </>
   );

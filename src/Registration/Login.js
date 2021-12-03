@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { setLogin } from '../action';
 import { Loginuser } from '../thunks/Loginuser';
-
+import { Validator } from 'react';
 
 function Login() {
   const dispatch = useDispatch();
@@ -17,10 +17,12 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(Loginuser(dataselector,history))
+
+    if (dataselector.email.trim() == "" && dataselector.password.trim() == "") {
+      alert("Email and Password must not be empty")
+    }else{
+    dispatch(Loginuser(dataselector,history))}
   }
-
-
   return (
     <>
       <h1 className="text-center">Login Page </h1>
@@ -31,7 +33,6 @@ function Login() {
               id="floatingInputCustom"
               name="email"
               type="email"
-
               placeholder="name@example.com"
               onChange={handleChnage}
             />
@@ -46,7 +47,7 @@ function Login() {
               onChange={handleChnage}
             />
             <label htmlFor="floatingPasswordCustom">Password</label>
-            <Button type="submit">Login</Button>
+            <Button className="mt-2" type="submit">Login</Button>
           </Form.Floating>
         </Form>
       </div>
